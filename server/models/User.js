@@ -1,12 +1,12 @@
-import { Schema, Types, model } from 'mongoose';
-import { articleSchemaName } from './Article';
+import mongoose from 'mongoose';
+import { courseSchemaName, userSchemaName } from './schemas';
 
-const UserSchema = new Schema({
-  id: Types.ObjectId,
+const UserSchema = new mongoose.Schema({
+  id: mongoose.Types.ObjectId,
   userName: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  articles: [{ type: Types.ObjectId, ref: articleSchemaName }],
+  courses: [{ type: mongoose.Types.ObjectId, ref: courseSchemaName }],
 });
 
-export const userSchemaName = 'User';
-export default model(userSchemaName, UserSchema);
+const User = mongoose.model(userSchemaName, UserSchema);
+export default User;
