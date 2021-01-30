@@ -4,15 +4,15 @@ import setupExpress from './server/config/express';
 import setupRoutes from './server/config/routes';
 import settings from './server/config/settings';
 
+const { port } = settings;
+const app = express();
+
 startApp();
 
 async function startApp() {
-  const app = express();
-  await setupDatabase(settings);
-
+  await setupDatabase();
   setupExpress(app);
   setupRoutes(app);
 
-  const port = settings.port;
   app.listen(port, () => console.log(`Server is running on port ${port}...`));
 }

@@ -1,9 +1,10 @@
 import mongoose from 'mongoose';
 import { seedCourses } from '../utils/db-seed';
+import settings from './settings';
 
 mongoose.Promise = global.Promise;
 
-export default async function setupDatabase(settings) {
+export default async function setupDatabase() {
   try {
     await mongoose.connect(settings.connectionString, {
       useNewUrlParser: true,

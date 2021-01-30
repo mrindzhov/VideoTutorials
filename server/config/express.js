@@ -31,11 +31,12 @@ function globalErrorHandler(err, req, res, next) {
 }
 
 async function layoutDataMiddleware(req, res, next) {
-  const courses = await Course.find({}).lean();
-
-  res.locals.username = 'Jo';
-  res.locals.isAuth = false;
-  res.locals.courses = courses;
+  res.locals = {
+    title: 'Video Tutorial App',
+    username: 'Jo',
+    isAuth: false,
+    courses: await Course.find({}).lean(),
+  };
 
   next();
 }
