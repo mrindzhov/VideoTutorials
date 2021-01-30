@@ -9,32 +9,28 @@ function getRouter() {
   const router = new Router();
 
   router.get('/', (req, res) => {
-    res.render('home/guest');
+    res.render('home/user', { title: 'Home' });
   });
   router.get('/about', (req, res) => {
-    /*controllers.home.about*/
-    res.render('home/guest');
+    res.render('home/guest', { title: 'About' });
   });
 
   router.get('/register', (req, res) => {
-    /*controllers.users.registerGet*/
     res.render('user/register');
   });
-  router.post('/register', (req, res) => {
-    /*controllers.users.registerPost*/
-  });
+  router.post('/register', (req, res) => {});
 
   router.get('/login', (req, res) => {
-    /*controllers.users.loginGet*/
     res.render('user/login');
   });
-  router.post('/login', (req, res) => {
-    /*controllers.users.loginPost*/
-  });
+  router.post('/login', (req, res) => {});
 
   router.post('/logout', (req, res) => {
-    /*controllers.users.logout*/
     res.redirect('/');
+  });
+
+  router.get('/course/create', (req, res) => {
+    res.render('course/create');
   });
 
   router.all('*', (req, res) => {
@@ -42,5 +38,6 @@ function getRouter() {
     res.send('404 Not Found!');
     res.end();
   });
+
   return router;
 }
