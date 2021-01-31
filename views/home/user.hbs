@@ -1,6 +1,6 @@
 <h1 class="text-center">Courses</h1>
 <section>
-    <a href="/course/create" class="btn btn-warning ">Create Course</a>
+    <a href="/courses/create" class="btn btn-warning ">Create Course</a>
     <form class="search float-right">
         <label>Search: </label>
         <input type="text">
@@ -10,10 +10,12 @@
 
 {{#if courses.length}}
 <div class="container mt-3">
-    <div class="row ">
-        <div class="card-deck d-flex justify-content-center">
+    <div class="row d-flex justify-content-center">
+        <div class="card-deck">
             {{#each courses }}
-            {{> course}}
+            <div class="col-md-4">
+                {{> course}}
+            </div>
             {{/each}}
         </div>
     </div>

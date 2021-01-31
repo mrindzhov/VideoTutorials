@@ -46,7 +46,7 @@ async function layoutDataMiddleware(req, res, next) {
   res.locals = {
     pageTitle: 'Video Tutorials',
     username: 'Jo',
-    isAuth: true,
+    isAuth: false,
   };
 
   next();

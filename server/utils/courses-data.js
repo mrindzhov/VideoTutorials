@@ -1,5 +1,6 @@
 const courses = [
   {
+    isPublic: true,
     title: 'ExpressJS',
     description: 'ExpressJS is ...',
     createDate: new Date(),
@@ -7,6 +8,7 @@ const courses = [
       'https://blog.cyberpanel.net/wp-content/uploads/2019/03/express-js-cyberpanel.jpeg',
   },
   {
+    isPublic: true,
     title: 'Angular',
     description: 'Angular is ...',
     createDate: new Date(),
@@ -14,6 +16,7 @@ const courses = [
       'https://colorlib.com/wp/wp-content/uploads/sites/2/angular-logo.png',
   },
   {
+    isPublic: true,
     title: 'React',
     description: 'React is ...',
     createDate: new Date(),

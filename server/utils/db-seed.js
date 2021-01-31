@@ -5,7 +5,7 @@ export async function seedCourses() {
   const dbCourses = await Course.find({});
   if (dbCourses.length > 0) return;
 
-  coursesData.forEach((c) => {
-    Course.create(c);
+  coursesData.forEach((course) => {
+    Course.create(course);
   });
 }
