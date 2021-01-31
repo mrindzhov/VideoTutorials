@@ -1,15 +1,27 @@
+import bodyParser from 'body-parser';
 import express from 'express';
 import handlebars from 'express-handlebars';
-import Course from '../models/Course';
+import methodOverride from 'method-override';
+import setupRoutes from './routes';
 
-export default function setupExpress(app) {
+export default function setupExpress() {
+  const app = express();
+
   setupViewEngine(app);
 
-  app.use(globalErrorHandler);
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use(express.static('public'));
 
+  app.use(methodOverride('_method'));
+
+  setupRoutes(app);
+
+  app.use(globalErrorHandler);
+
   console.log('Express is ready!');
+
+  return app;
 }
 
 function setupViewEngine(app) {
@@ -32,10 +44,9 @@ function globalErrorHandler(err, req, res, next) {
 
 async function layoutDataMiddleware(req, res, next) {
   res.locals = {
-    title: 'Video Tutorial App',
+    pageTitle: 'Video Tutorials',
     username: 'Jo',
-    isAuth: false,
-    courses: await Course.find({}).lean(),
+    isAuth: true,
   };
 
   next();

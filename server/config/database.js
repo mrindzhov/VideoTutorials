@@ -10,6 +10,7 @@ export default async function setupDatabase() {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
+      useFindAndModify: true,
     });
     console.log('MongoDB ready!');
 
