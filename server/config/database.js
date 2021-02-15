@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
-import { seedCourses } from '../utils/db-seed';
+import Course from '../models/Course';
+import { defaultCourses } from '../services/courses.service';
 import settings from './settings';
 
 mongoose.Promise = global.Promise;
@@ -14,10 +15,18 @@ export default async function setupDatabase() {
     });
     console.log('MongoDB ready!');
 
-    seedCourses();
-
-    console.log('Courses seeded!');
+    await seedCourses();
   } catch (error) {
     console.log(`Database error: ${err}`);
   }
+}
+
+async function seedCourses() {
+  const dbCourses = await Course.find({});
+  if (dbCourses.length > 0) return;
+
+  defaultCourses.forEach((course) => {
+    Course.create(course);
+  });
+  console.log('Courses seeded!');
 }

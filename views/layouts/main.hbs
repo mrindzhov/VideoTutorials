@@ -19,17 +19,17 @@
             <ul class="navbar-nav ml-auto">
                 {{#if isAuth}}
                 <li class="nav-item"> <a class="nav-link" href="/">Welcome, {{username}}</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="/logout">Logout</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="/auth/logout">Logout</a> </li>
                 {{else}}
-                <li class="nav-item"> <a class="nav-link" href="/login">Login</a> </li>
-                <li class="nav-item"> <a class="nav-link" href="/register">Register</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="/auth/login">Login</a> </li>
+                <li class="nav-item"> <a class="nav-link" href="/auth/register">Register</a> </li>
                 {{/if}}
             </ul>
         </nav>
 
-        {{#if globalError}}
+        {{#if error}}
         <section class="notifications">
-            <p class="notification-message">{{globalError}}</p>
+            <p class="notification-message">{{error.message}}</p>
         </section>
         {{/if}}
 

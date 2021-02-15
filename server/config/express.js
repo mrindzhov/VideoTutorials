@@ -1,27 +1,53 @@
 import bodyParser from 'body-parser';
+import cookieParser from 'cookie-parser';
 import express from 'express';
 import handlebars from 'express-handlebars';
+import session from 'express-session';
 import methodOverride from 'method-override';
-import setupRoutes from './routes';
+import passport from 'passport';
+import LocalPassport from 'passport-local';
+import { globalLayoutDataMiddleware } from '../middleware/global.middleware';
+import User from '../models/User';
+import routes from './routes';
 
 export default function setupExpress() {
   const app = express();
 
   setupViewEngine(app);
 
+  app.use(cookieParser());
+
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(express.static('public'));
+  app.use(
+    session({
+      secret: 'neshto-taino!@#$%',
+      resave: false,
+      saveUninitialized: false,
+    })
+  );
+
+  setupPassport(app);
 
   app.use(methodOverride('_method'));
 
-  setupRoutes(app);
+  app.use(express.static('public'));
 
-  app.use(globalErrorHandler);
+  app.use(globalLayoutDataMiddleware);
+
+  app.use(routes);
 
   console.log('Express is ready!');
 
   return app;
+}
+
+function setupPassport(app) {
+  app.use(passport.initialize());
+  app.use(passport.session());
+  passport.use(new LocalPassport(User.authenticate()));
+  passport.serializeUser(User.serializeUser());
+  passport.deserializeUser(User.deserializeUser());
 }
 
 function setupViewEngine(app) {
@@ -33,21 +59,4 @@ function setupViewEngine(app) {
 
   app.engine('hbs', hbs);
   app.set('view engine', 'hbs');
-  app.use(layoutDataMiddleware);
-}
-
-function globalErrorHandler(err, req, res, next) {
-  res.type('text/plain');
-  res.status(500);
-  res.send(err);
-}
-
-async function layoutDataMiddleware(req, res, next) {
-  res.locals = {
-    pageTitle: 'Video Tutorials',
-    username: 'Jo',
-    isAuth: false,
-  };
-
-  next();
 }

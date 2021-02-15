@@ -1,10 +1,8 @@
 import mongoose from 'mongoose';
-import { urlValidator } from '../utils/db-utils';
+import { urlValidator } from '../services/validation.service';
 import { courseSchemaName, userSchemaName } from './schemas';
 
 const CourseSchema = new mongoose.Schema({
-  id: mongoose.Types.ObjectId,
-
   title: { type: String, required: true, unique: true },
   description: { type: String, required: true, maxlength: 50 },
   imageUrl: { type: String, required: true, validate: [urlValidator] },

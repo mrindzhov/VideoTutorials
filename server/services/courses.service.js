@@ -1,4 +1,24 @@
-const courses = [
+import Course from '../models/Course';
+
+export async function getAllCourses() {
+  // TODO: all public courses
+  // sorted in descending order by the created time
+
+  return await Course.find({}).lean();
+}
+export async function getTopCourses() {
+  // TODO: the top three (3) public courses
+  // ordered by the count of enrolled in users in descending order.
+  //[{$sortByCount:'usersEnrolled'},{$filter:[]}]
+  return await Course.find({}).lean();
+}
+
+export const mapCourseFromBody = (req) => ({
+  ...req.body,
+  isPublic: req.body.isPublic === 'on',
+});
+
+export const defaultCourses = [
   {
     isPublic: true,
     title: 'ExpressJS',
@@ -24,4 +44,3 @@ const courses = [
       'http://blog.addthiscdn.com/wp-content/uploads/2014/11/addthis-react-flux-javascript-scaling.png',
   },
 ];
-export default courses;
