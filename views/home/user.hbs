@@ -1,9 +1,9 @@
 <h1 class="text-center">Courses</h1>
 <section>
     <a href="/courses/create" class="btn btn-warning ">Create Course</a>
-    <form class="search float-right">
+    <form class="search float-right" action="/" method="GET">
         <label>Search: </label>
-        <input type="text">
+        <input type="text" name="searchText" value="{{searchText}}">
         <input type="submit" class="btn btn-info" value="Search">
     </form>
 </section>
@@ -11,13 +11,13 @@
 {{#if courses.length}}
 <div class="container mt-3">
     <div class="row d-flex justify-content-center">
-        <div class="card-deck">
-            {{#each courses }}
-            <div class="col-md-4">
-                {{> course}}
-            </div>
-            {{/each}}
+
+        {{#each courses }}
+        <div class="col-md-4">
+            {{> course}}
         </div>
+        {{/each}}
+
     </div>
 </div>
 {{else}}

@@ -10,14 +10,27 @@
       <h3 class="my-3">Description</h3>
       <p>{{course.description}}</p>
 
-      <a class="btn btn-danger" href="/courses/{{course._id}}/delete">Delete</a>
-      <a class="btn btn-warning" href="/courses/{{course._id}}/edit">Edit</a>
+      {{#if isCreatedByUser}}
+      <div class="row m-4">
+        <form action="/courses/{{course._id}}?_method=DELETE" method="POST" class="col">
+          <button type="submit" class="col btn btn-danger">Delete</button>
+        </form>
 
-      {{#if course.isUserEnrolled}}
-      <span class="enrolled-span">You are already enrolled</span>
+        <a class="col btn btn-warning" href="/courses/{{course._id}}/edit">Edit</a>
+      </div>
       {{else}}
-      <a class="btn btn-primary" href="/courses{{course._id}}/enroll">Enroll</a>
+      <div class="row m-4">
+        {{#if isUserEnrolled}}
+        <span class="enrolled-span col m-4">You are already enrolled</span>
+        {{else}}
+        <form action="/courses/{{course._id}}/enroll" method="POST" class="col">
+          <button type="submit" class="btn btn-primary">Enroll</button>
+        </form>
+        {{/if}}
+      </div>
       {{/if}}
+
+
     </div>
   </div>
 </div>

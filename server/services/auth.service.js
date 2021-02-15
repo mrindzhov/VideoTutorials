@@ -14,7 +14,13 @@ export async function hashPassword(next) {
     this.password = hash;
     next();
   } catch (error) {
-    console.log(err);
+    console.error(err);
     throw error;
   }
 }
+
+export const defaultAdminUser = {
+  _id: '602a6a843a160d74a0a8af2f',
+  username: 'kingsize252',
+  password: 'dummy-password',
+};

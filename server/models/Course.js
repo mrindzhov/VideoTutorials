@@ -7,7 +7,8 @@ const CourseSchema = new mongoose.Schema({
   description: { type: String, required: true, maxlength: 50 },
   imageUrl: { type: String, required: true, validate: [urlValidator] },
   isPublic: { type: Boolean, default: false },
-  usersEnrolled: { type: mongoose.Types.ObjectId, ref: userSchemaName },
+  usersEnrolled: [{ type: mongoose.Types.ObjectId, ref: userSchemaName }],
+  createdBy: { type: mongoose.Types.ObjectId, ref: userSchemaName },
   createDate: { type: Date, default: new Date() },
 });
 const Course = mongoose.model(courseSchemaName, CourseSchema);

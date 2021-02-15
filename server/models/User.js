@@ -5,7 +5,8 @@ import { courseSchemaName, userSchemaName } from './schemas';
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  courses: [{ type: mongoose.Types.ObjectId, ref: courseSchemaName }],
+  coursesCreated: [{ type: mongoose.Types.ObjectId, ref: courseSchemaName }],
+  coursesEnrolled: [{ type: mongoose.Types.ObjectId, ref: courseSchemaName }],
 });
 userSchema.plugin(passportLocalMongoose, { hashField: 'password' });
 
