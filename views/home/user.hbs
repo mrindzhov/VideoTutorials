@@ -1,0 +1,25 @@
+<h1 class="text-center">Courses</h1>
+<section>
+    <a href="/courses/create" class="btn btn-warning ">Create Course</a>
+    <form class="search float-right" action="/" method="GET">
+        <label>Search: </label>
+        <input type="text" name="searchText" value="{{searchText}}">
+        <input type="submit" class="btn btn-info" value="Search">
+    </form>
+</section>
+
+{{#if courses.length}}
+<div class="container mt-3">
+    <div class="row d-flex justify-content-center">
+
+        {{#each courses }}
+        <div class="col-md-4">
+            {{> course}}
+        </div>
+        {{/each}}
+
+    </div>
+</div>
+{{else}}
+<h3 class="text-center">No courses...</h3>
+{{/if}}

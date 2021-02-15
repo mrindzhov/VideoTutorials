@@ -1,0 +1,36 @@
+<div class="container">
+  <h1 class="my-4">{{course.title}}</h1>
+
+  <div class="row">
+    <div class="col-md-8">
+      <img class="img-fluid" src="{{course.imageUrl}}" alt="{{course.title}}" />
+    </div>
+
+    <div class="col-md-4 text-center">
+      <h3 class="my-3">Description</h3>
+      <p>{{course.description}}</p>
+
+      {{#if isCreatedByUser}}
+      <div class="row m-4">
+        <form action="/courses/{{course._id}}?_method=DELETE" method="POST" class="col">
+          <button type="submit" class="col btn btn-danger">Delete</button>
+        </form>
+
+        <a class="col btn btn-warning" href="/courses/{{course._id}}/edit">Edit</a>
+      </div>
+      {{else}}
+      <div class="row m-4">
+        {{#if isUserEnrolled}}
+        <span class="enrolled-span col m-4">You are already enrolled</span>
+        {{else}}
+        <form action="/courses/{{course._id}}/enroll" method="POST" class="col">
+          <button type="submit" class="btn btn-primary">Enroll</button>
+        </form>
+        {{/if}}
+      </div>
+      {{/if}}
+
+
+    </div>
+  </div>
+</div>
