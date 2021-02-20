@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
-import { urlValidator } from '../services/validation.service';
-import { courseSchemaName, userSchemaName } from './schemas';
+import { userSchemaName } from '../../models/schemas';
+import { urlValidator } from '../../services/validation.service';
+import { courseSchemaName } from '../schemas';
 
 const CourseSchema = new mongoose.Schema({
   title: { type: String, required: true, unique: true },

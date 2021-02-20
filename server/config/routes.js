@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import authController from '../controllers/auth.controller';
-import coursesController from '../controllers/courses.controller';
-import homeController from '../controllers/home.controller';
+import coursesController from '../features/courses/controller';
+import homeController from '../features/home.controller';
 
 const router = Router();
 

@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import passportLocalMongoose from 'passport-local-mongoose';
-import { courseSchemaName, userSchemaName } from './schemas';
+import { courseSchemaName } from '../features/schemas';
+import { userSchemaName } from './schemas';
 
 const userSchema = new mongoose.Schema({
   username: { type: String, required: true, unique: true },

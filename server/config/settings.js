@@ -2,9 +2,10 @@ const env = process.env.NODE_ENV || 'development';
 
 const appSettings = {
   development: {
-    ALWAYS_AUTHENTICATED: true,
+    appTitle: 'Video Tutorials',
+    ALWAYS_AUTHENTICATED: false,
     connectionString: 'mongodb://localhost:27017/videoTutorials',
-    port: 1337,
+    port: 1338,
   },
   staging: {},
   production: {

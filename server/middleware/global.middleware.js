@@ -7,7 +7,8 @@ export async function globalLayoutDataMiddleware(req, res, next) {
     return await authenticateWithAdminUser(req, next);
 
   res.locals = {
-    pageTitle: 'Video Tutorials',
+    brand: settings.appTitle,
+    pageTitle: settings.appTitle,
     username: req.user?.username,
     isAuth: req.isAuthenticated(),
   };

@@ -1,14 +1,11 @@
 import { Router } from 'express';
-import { fetchCourse } from '../middleware/courses.middleware';
-import { authGuard } from '../middleware/endpoints.middleware';
-import { validateId } from '../middleware/mongoose.middleware';
-import Course from '../models/Course';
-import User from '../models/User';
-import { mapCourseFromBody } from '../services/courses.service';
-import {
-  courseValidation,
-  validateRequest,
-} from '../services/validation.service';
+import { authGuard } from '../../middleware/endpoints.middleware';
+import { validateId } from '../../middleware/mongoose.middleware';
+import User from '../../models/User';
+import { validateRequest } from '../../services/validation.service';
+import Course from './Course';
+import { fetchCourse } from './middleware';
+import { courseValidation, mapCourseFromBody } from './service';
 
 const router = Router();
 router.use(authGuard);
@@ -38,23 +35,33 @@ router
 
 router
   .route('/:id/edit')
-  .get(validateId, fetchCourse, (req, res) =>
-    res.render('course/edit', {
+  .get(validateId, fetchCourse, (req, res) => {
+    const templateConfig = {
       pageTitle: 'Edit Course | Video Tutorials',
-      course: req.course,
-    })
-  )
+      formData: { ...req.course, ...req.session.validationErrors?.formData },
+      error: req.session.validationErrors?.error,
+    };
+
+    if (req.session.validationErrors) delete req.session.validationErrors;
+
+    return res.render('course/edit', templateConfig);
+  })
   .put(
     validateId,
     courseValidation,
-    validateRequest('course/edit'),
+    validateRequest(null, true),
     async (req, res) => {
-      const updatedCourse = await Course.findByIdAndUpdate(
-        req.params.id,
-        mapCourseFromBody(req)
-      );
+      try {
+        const updatedCourse = await Course.findByIdAndUpdate(
+          req.params.id,
+          mapCourseFromBody(req)
+        );
 
-      res.redirect(`/courses/${updatedCourse._id}/details`);
+        res.redirect(`/courses/${updatedCourse._id}/details`);
+      } catch (error) {
+        req.session.validationErrors = { error, formData: req.body };
+        res.redirect(req.originalUrl.split('?')[0]);
+      }
     }
   );
 

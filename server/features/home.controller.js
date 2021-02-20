@@ -3,7 +3,7 @@ import {
   getAllCourses,
   getCoursesByTitle,
   getTopCourses,
-} from '../services/courses.service';
+} from './courses/service';
 
 const router = Router();
 

@@ -2,11 +2,8 @@ import { Router } from 'express';
 import passport from 'passport';
 import { anonymousOnly, authGuard } from '../middleware/endpoints.middleware';
 import User from '../models/User';
-import {
-  loginValidation,
-  registerValidation,
-  validateRequest,
-} from '../services/validation.service';
+import { loginValidation, registerValidation } from '../services/auth.service';
+import { validateRequest } from '../services/validation.service';
 
 const router = Router();
 

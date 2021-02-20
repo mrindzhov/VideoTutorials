@@ -1,4 +1,4 @@
-import Course from '../models/Course';
+import Course from './Course';
 
 export async function fetchCourse(req, res, next) {
   const course = await Course.findById(req.params.id).lean();
